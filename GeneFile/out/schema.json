@@ -1,0 +1,83 @@
+{
+  "propertyKeys" : [ {
+    "name" : "node_id",
+    "dataType" : "Integer",
+    "cardinality" : "SINGLE"
+  }, {
+    "name" : "name",
+    "dataType" : "String",
+    "cardinality" : "SINGLE"
+  }, {
+    "name" : "text",
+    "dataType" : "String",
+    "cardinality" : "SINGLE"
+  }, {
+    "name" : "Date",
+    "dataType" : "Date",
+    "cardinality" : "SINGLE"
+  } ],
+  "vertexLabels" : [ {
+    "name" : "User",
+    "partition" : false,
+    "useStatic" : false
+  }, {
+    "name" : "Tweet",
+    "partition" : false,
+    "useStatic" : false
+  } ],
+  "edgeLabels" : [ {
+    "name" : "Follows",
+    "multiplicity" : "SIMPLE",
+    "signatures" : null,
+    "unidirected" : false
+  }, {
+    "name" : "Likes",
+    "multiplicity" : "SIMPLE",
+    "signatures" : null,
+    "unidirected" : false
+  }, {
+    "name" : "Retweets",
+    "multiplicity" : "MULTI",
+    "signatures" : null,
+    "unidirected" : false
+  }, {
+    "name" : "Tweets",
+    "multiplicity" : "ONE2MANY",
+    "signatures" : null,
+    "unidirected" : false
+  }, {
+    "name" : "Mentions",
+    "multiplicity" : "MULTI",
+    "signatures" : null,
+    "unidirected" : false
+  } ],
+  "vertexIndexes" : [ {
+    "name" : "node_id_comp",
+    "propertyKeys" : [ "node_id" ],
+    "composite" : true,
+    "unique" : true
+  }, {
+    "name" : "name_comp",
+    "propertyKeys" : [ "name" ],
+    "composite" : true,
+    "unique" : false
+  }, {
+    "name" : "text_comp",
+    "propertyKeys" : [ "text" ],
+    "composite" : true,
+    "unique" : false
+  }, {
+    "name" : "text_mixed",
+    "propertyKeys" : [ "text" ],
+    "composite" : false,
+    "unique" : false,
+    "mixedIndex" : "search"
+  } ],
+  "edgeIndexes" : [ {
+    "name" : "Date_comp",
+    "propertyKeys" : [ "Date" ],
+    "composite" : true,
+    "unique" : false
+  } ],
+  "vertexCentricIndexes" : [ ]
+}
