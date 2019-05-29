@@ -15,11 +15,15 @@
  *******************************************************************************/
 package com.mengxp.janusgraph.utils.importer;
 
+import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.janusgraph.core.JanusGraph;
 import org.janusgraph.core.JanusGraphFactory;
 import com.mengxp.janusgraph.utils.importer.dataloader.DataLoader;
 import com.mengxp.janusgraph.utils.importer.schema.SchemaLoader;
 
+/**
+ * 先录顶点再录边  只用一个workpool 底层采用多线程的方式
+ */
 public class BatchImport {
 
     public static void main(String args[]) throws Exception {
@@ -31,8 +35,11 @@ public class BatchImport {
         }
 
         JanusGraph graph = JanusGraphFactory.open(args[0]);
+        HBaseConfiguration.create();
+
         //JanusGraph graph = JanusGraphFactory.build().set("storage.backend", "inmemory").open();
         if (!(args.length > 4 && args[4].equals("skipSchema")))
+            //建模
             new SchemaLoader().loadSchema(graph, args[2]);
         new DataLoader(graph).loadVertex(args[1], args[3]);
         new DataLoader(graph).loadEdges(args[1], args[3]);
